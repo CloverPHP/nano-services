@@ -1,0 +1,23 @@
+{
+  "name": "cloverphp\/nano",
+  "description": "",
+  "type": "library",
+  "require": {
+    "php": "^5.6 || >=7.0",
+    "ext-json": "*",
+    "ext-mysqli": "*",
+    "ext-ctype": "*",
+    "ext-zlib": "*",
+    "ext-mbstring": "*",
+    "ext-bcmath": "*"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Clover\\Nano\\": "src/"
+    },
+    "files": [
+      "src/functions.php"
+    ]
+  }
+}
