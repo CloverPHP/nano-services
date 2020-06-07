@@ -13,8 +13,9 @@ use ReflectionException;
  * @package Model
  * @property AccessLog $AccessLog
  * @property Settings $Settings
+ * @property WechatUser $WechatUser
  */
-final class Loader extends Model
+final class Loader
 {
     /**
      * @var App
@@ -51,7 +52,7 @@ final class Loader extends Model
             return $this->components[$className];
         } else {
             if (class_exists($className)) {
-                $parameters = [$this];
+                $parameters = [$this->app];
                 if (!empty($params) && !is_array($params)) {
                     $parameters[] = &$params;
                 } elseif (!empty($params) && is_array($params)) {

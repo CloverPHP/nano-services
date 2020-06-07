@@ -37,24 +37,20 @@ final class Module
     }
 
     /**
-     * @param $modelName
+     * @param $className
      * @return object
      * @throws InternalError
      */
-    final public function getModule($modelName)
+    final public function getModule($className)
     {
-        $className = "\\Module\\" . $modelName;
         if (!isset($this->components[$className])) {
             if (class_exists($className)) {
                 try {
                     $params = [$this->app, $this];
                     $refClass = new ReflectionClass($className);
                     $object = $refClass->newInstanceArgs($params);
-                    if ($object instanceof Model) {
-                        $this->components[$className] = $object;
-                        return $object;
-                    } else
-                        throw new InternalError("Module Invalid:{$className}");
+                    $this->components[$className] = $object;
+                    return $object;
                 } catch (ReflectionException $ex) {
                     throw new InternalError($ex->getMessage());
                 }
@@ -73,9 +69,10 @@ final class Module
     public function __get($name)
     {
         $className = $name === 'Model' ? "Model\\Loader" : "Module\\{$name}";
+
         if (!isset($this->components[$name])) {
             if (class_exists($className))
-                $this->components[$name] = $this->getModule($name);
+                $this->components[$name] = $this->getModule($className);
             else
                 throw new InternalError("Module({$name}) not found.");
         }
